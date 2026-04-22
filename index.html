@@ -485,7 +485,7 @@ python3 -m http.server 8080
     playerInited = false;
     $box.empty().html('<div style="padding:60px 20px;text-align:center;color:#6a78a3;font-size:13px">⏳ Загрузка...</div>');
 
-    function tryInit(attempts){
+    function tryInit(startTs){
       if(typeof window.kinobox==='function'){
         $box.empty();
         try{
@@ -496,13 +496,26 @@ python3 -m http.server 8080
           console.error('[KinoBox]',e);
           $box.html('<div style="padding:50px 20px;text-align:center;color:#fca5a5;font-size:13px">⚠️ Ошибка плеера. Обновите страницу.</div>');
         }
-      } else if(attempts < 40){
-        setTimeout(function(){tryInit(attempts+1);},200);
+        return;
+      }
+
+      var elapsed = Date.now() - startTs;
+      if(elapsed < 30000){
+        setTimeout(function(){tryInit(startTs);},250);
       } else {
-        $box.html('<div style="padding:50px 20px;text-align:center;color:#fca5a5;font-size:13px">⚠️ Плеер не загрузился. Проверьте соединение.</div>');
+        $box.html(
+          '<div style="padding:50px 20px;text-align:center;color:#fca5a5;font-size:13px">'+
+          '⚠️ Плеер долго отвечает. Это не всегда проблема интернета — попробуйте отключить блокировщик рекламы и нажать «Повторить».<br><br>'+
+          '<button id="retryPlayerBtn" style="background:#3b5bdb;color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer">Повторить</button>'+
+          '</div>'
+        );
+        $('#retryPlayerBtn').one('click', function(){
+          $box.html('<div style="padding:60px 20px;text-align:center;color:#6a78a3;font-size:13px">⏳ Повторная загрузка...</div>');
+          setTimeout(function(){tryInit(Date.now());},100);
+        });
       }
     }
-    tryInit(0);
+    tryInit(Date.now());
   }
 
   /* --- роут --- */

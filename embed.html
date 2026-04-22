@@ -26,7 +26,6 @@ iframe{border:none!important}
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="/kinobox.js"></script>
 
-</div>
 <script>
 (function(){
   /* Читаем ID из хэша: /embed/#301 или /embed/#films/301 */
@@ -44,7 +43,23 @@ iframe{border:none!important}
     return;
   }
 
-  function tryInit(attempts){
+  function showInitTimeoutError(){
+    var box = document.getElementById('embedBox');
+    box.innerHTML =
+      '<div class="err">⚠️ Плеер долго отвечает. Это не всегда проблема интернета.<br>'+ 
+      'Отключите блокировщик рекламы и попробуйте ещё раз.<br><br>'+ 
+      '<button id="retryEmbedBtn" style="background:#3b5bdb;color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer">Повторить</button></div>';
+
+    var retryBtn = document.getElementById('retryEmbedBtn');
+    if(retryBtn){
+      retryBtn.addEventListener('click', function(){
+        box.innerHTML = '<div class="loader">⏳ Повторная загрузка плеера...</div>';
+        setTimeout(function(){tryInit(Date.now());},100);
+      }, {once:true});
+    }
+  }
+
+  function tryInit(startTs){
     if(typeof window.kinobox === 'function'){
       var box = document.getElementById('embedBox');
       box.innerHTML = '';
@@ -54,15 +69,18 @@ iframe{border:none!important}
       }catch(e){
         box.innerHTML = '<div class="err">⚠️ Ошибка плеера: '+e.message+'</div>';
       }
-    } else if(attempts < 40){
-      setTimeout(function(){tryInit(attempts+1);}, 200);
+      return;
+    }
+
+    var elapsed = Date.now() - startTs;
+    if(elapsed < 30000){
+      setTimeout(function(){tryInit(startTs);}, 250);
     } else {
-      document.getElementById('embedBox').innerHTML =
-        '<div class="err">⚠️ Плеер не загрузился. Проверьте соединение.</div>';
+      showInitTimeoutError();
     }
   }
 
-  tryInit(0);
+  tryInit(Date.now());
 
   /* Обновляем при смене хэша */
   window.addEventListener('hashchange', function(){
