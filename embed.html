@@ -24,7 +24,45 @@ iframe{border:none!important}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="/kinobox.js"></script>
+<script>
+(function(){
+  var proxies = [
+    "https://secure-272717.vercel.app",
+    "https://secure-272717.tatnet.app",
+    "https://secure-ridge-22999-537c838d4a8a.herokuapp.com",
+    "https://proxy-video.vercel.app",
+    window.location.origin
+  ];
+
+  function normalize(base){
+    return base.replace(/\/$/, "") + "/kinobox.js";
+  }
+
+  function loadScript(url, onOk, onErr){
+    var s = document.createElement("script");
+    s.src = url;
+    s.async = true;
+    s.onload = onOk;
+    s.onerror = onErr;
+    document.head.appendChild(s);
+  }
+
+  function loadFrom(i){
+    if(i >= proxies.length){
+      console.error("[KinoBox] Не удалось загрузить kinobox.js ни с одного прокси.");
+      return;
+    }
+    var src = normalize(proxies[i]);
+    loadScript(src, function(){
+      console.info("[KinoBox] kinobox.js загружен:", src);
+    }, function(){
+      loadFrom(i + 1);
+    });
+  }
+
+  loadFrom(0);
+})();
+</script>
 
 <script>
 (function(){
