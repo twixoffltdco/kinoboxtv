@@ -10,6 +10,10 @@
   var currentType  = 'films';
   var CONTAINER    = '#kinoboxContainer';
   var DEFAULT_ID   = 301;
+  var MAX_PLAYER_RETRIES = 3;
+  var RETRY_DELAY_MS = 1800;
+  var playerWatchTimer = null;
+  var playerWatchObserver = null;
 
   /* === PLAYER === */
 
@@ -24,16 +28,90 @@
     }
   }
 
-  function initPlayer(kinopoiskId) {
+  function clearPlayerWatchers() {
+    if (playerWatchTimer) {
+      clearTimeout(playerWatchTimer);
+      playerWatchTimer = null;
+    }
+    if (playerWatchObserver) {
+      playerWatchObserver.disconnect();
+      playerWatchObserver = null;
+    }
+  }
+
+  function isRecoverablePlayerMessage(text) {
+    if (!text) return false;
+    var normalized = String(text).toLowerCase();
+    return normalized.indexOf('плеер долго отвечает') !== -1 ||
+           normalized.indexOf('ошибка загрузки') !== -1 ||
+           normalized.indexOf('error') !== -1;
+  }
+
+  function schedulePlayerRetry(kinopoiskId, attempt, reasonText) {
+    if (attempt >= MAX_PLAYER_RETRIES) {
+      var reason = reasonText ? '<br><small style="opacity:.8">' + reasonText + '</small>' : '';
+      showPlayerError('Плеер временно недоступен. Попробуйте позже или обновите страницу.' + reason);
+      return;
+    }
+
+    var nextAttempt = attempt + 1;
+    $(CONTAINER).html(
+      '<div style="padding:60px 20px;text-align:center;color:#fcd34d;font-size:14px;">' +
+      '⚠️ Проблема с источником, повторная попытка ' + nextAttempt + '/' + MAX_PLAYER_RETRIES + '…' +
+      '</div>'
+    );
+
+    setTimeout(function () {
+      initPlayer(kinopoiskId, { attempt: nextAttempt, isRetry: true });
+    }, RETRY_DELAY_MS);
+  }
+
+  function watchPlayerState(kinopoiskId, attempt) {
+    clearPlayerWatchers();
+    var container = document.querySelector(CONTAINER);
+    if (!container) return;
+
+    var hasLoadedIframe = function () {
+      var iframe = container.querySelector('iframe');
+      return !!(iframe && iframe.getAttribute('src'));
+    };
+
+    var inspectForRetry = function () {
+      if (hasLoadedIframe()) return;
+      var messageNode = container.querySelector('.kinobox_message');
+      var messageText = messageNode ? messageNode.textContent : container.textContent;
+      if (isRecoverablePlayerMessage(messageText)) {
+        clearPlayerWatchers();
+        schedulePlayerRetry(kinopoiskId, attempt, messageText);
+      }
+    };
+
+    playerWatchObserver = new MutationObserver(inspectForRetry);
+    playerWatchObserver.observe(container, { childList: true, subtree: true, characterData: true });
+
+    playerWatchTimer = setTimeout(function () {
+      if (hasLoadedIframe()) return;
+      inspectForRetry();
+    }, 12000);
+  }
+
+  function initPlayer(kinopoiskId, options) {
+    options = options || {};
+    var attempt = options.attempt || 0;
     if (!kinopoiskId || isNaN(kinopoiskId)) {
       showPlayerError('Некорректный ID.');
       return;
     }
     var $container = $(CONTAINER);
+    clearPlayerWatchers();
     $container.empty();
     $container.attr('data-kinopoisk', kinopoiskId);
     $('#currentKpBadge').text('ID: ' + kinopoiskId);
-    $container.html('<div style="padding:60px 20px;text-align:center;color:#6a78a3;font-size:14px;">⏳ Загрузка плеера...</div>');
+    $container.html(
+      '<div style="padding:60px 20px;text-align:center;color:#6a78a3;font-size:14px;">' +
+      '⏳ Загрузка плеера' + (attempt ? ' (попытка ' + (attempt + 1) + ')' : '') + '...' +
+      '</div>'
+    );
 
     waitForKinobox(function () {
       $container.empty();
@@ -41,9 +119,10 @@
         window.kinobox(CONTAINER, { search: { kinopoisk: kinopoiskId } });
         if (window.kinoboxTitleName) window.kinoboxTitleName.update(kinopoiskId);
         setTimeout(applyGeoFilter, 1200);
+        watchPlayerState(kinopoiskId, attempt);
       } catch (e) {
         console.error('[KinoBox]', e);
-        showPlayerError('Ошибка инициализации. Обновите страницу.');
+        schedulePlayerRetry(kinopoiskId, attempt, 'Ошибка инициализации');
       }
     });
   }
@@ -83,6 +162,7 @@
   /* === PAGES === */
 
   function showPage(pageId) {
+    if (pageId !== 'player') clearPlayerWatchers();
     $('.info-page').removeClass('active-page');
     var map = {
       player: '#playerPage', landing: '#landingPage', faq: '#faqPage',
