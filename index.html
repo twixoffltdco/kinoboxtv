@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>KinoBox — Кино и сериалы онлайн</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta name="description" content="KinoBox.tv — Смотрите фильмы и сериалы бесплатно онлайн. Быстрый плеер нового поколения.">
+<meta name="keywords" content="кино онлайн, сериалы онлайн, фильмы бесплатно, kinobox">
+<meta name="HandheldFriendly" content="true">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:title" content="KinoBox — Кино и сериалы онлайн">
+<meta property="og:description" content="Смотрите фильмы и сериалы бесплатно. Быстрый плеер нового поколения.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kinobox.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- НАВИГАЦИЯ -->
+  <nav class="main-nav">
+    <a href="#" data-page="landing" class="nav-logo">🎬 KinoBox</a>
+    <div class="nav-links">
+      <a href="#" data-page="player">▶ Плеер</a>
+      <a href="#" data-page="faq">❓ FAQ</a>
+      <a href="#" data-page="docs">📘 Docs</a>
+      <a href="#" data-page="terms">📜 Условия</a>
+      <a href="#" data-page="privacy">🔒 Политика</a>
+      <a href="#" data-page="about">ℹ️ О сайте</a>
+    </div>
+  </nav>
+
+  <div class="main-container">
+
+    <!-- ======================== СТРАНИЦА ПЛЕЕРА ======================== -->
+    <div id="playerPage" class="info-page">
+      <div class="player-section">
+        <div class="player-header">
+          <h2 id="playerTitle">🎥 KinoBox Плеер</h2>
+          <div class="player-id-badge" id="currentKpBadge">ID: —</div>
+        </div>
+        <div id="kinoboxContainer" class="kinobox-player"></div>
+        <div class="player-hint">
+          💡 Используй адресную строку:
+          <code>/films/1234567</code> для фильма или
+          <code>/serials/1234567</code> для сериала
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== ЛЕНДИНГ ======================== -->
+    <div id="landingPage" class="info-page active-page">
+      <div class="hero">
+        <div class="hero-icon">🎬</div>
+        <h1>KinoBox.tv</h1>
+        <p class="hero-sub">Плеер нового поколения для фильмов и сериалов</p>
+        <a href="#" data-page="player" class="btn-start">▶ Смотреть сейчас</a>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Быстрый запуск</h3>
+          <p>Плеер загружается мгновенно, без лишних кликов и регистрации</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📱</span>
+          <h3>Любое устройство</h3>
+          <p>Работает на телефоне, планшете и компьютере одинаково хорошо</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔗</span>
+          <h3>ID Кинопоиска</h3>
+          <p>Просто укажи ID из Кинопоиска в адресной строке — плеер найдёт всё сам</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🎞️</span>
+          <h3>Много источников</h3>
+          <p>Автоматически подбирает лучший рабочий источник для просмотра</p>
+        </div>
+      </div>
+
+      <div class="how-to">
+        <h2>Как смотреть?</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <p>Найди фильм или сериал на <a href="https://www.kinopoisk.ru" target="_blank">Кинопоиске</a> и скопируй его числовой ID из адресной строки</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <p>Вставь ID в адресную строку этого сайта: <code>kinobox.tv/films/ID</code> или <code>kinobox.tv/serials/ID</code></p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <p>Плеер загрузится автоматически — выбери источник и наслаждайся!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== FAQ ======================== -->
+    <div id="faqPage" class="info-page">
+      <h1>Часто задаваемые вопросы</h1>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Как найти ID фильма на Кинопоиске?</div>
+        <div class="faq-a">Откройте страницу фильма на kinopoisk.ru — в адресной строке будет ссылка вида <code>https://www.kinopoisk.ru/film/12345/</code>. Число <strong>12345</strong> — это и есть нужный ID.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Как открыть фильм через KinoBox?</div>
+        <div class="faq-a">Введите в адресную строку браузера: <code>kinobox.tv/films/ID</code> для фильма или <code>kinobox.tv/serials/ID</code> для сериала. Плеер загрузится сам.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Почему плеер не загружается?</div>
+        <div class="faq-a">Убедитесь, что ID в адресной строке — это корректное число. Иногда источник может быть временно недоступен — попробуйте переключить источник в меню плеера (кнопка выбора выше видео).</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Нужна ли регистрация?</div>
+        <div class="faq-a">Нет. KinoBox полностью бесплатен, регистрация не требуется.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Работает ли на телефоне?</div>
+        <div class="faq-a">Да, интерфейс полностью адаптивен. Плеер корректно работает на iOS и Android браузерах.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Можно ли смотреть сериал по сериям?</div>
+        <div class="faq-a">Да. При открытии сериала в плеере появляется меню выбора сезона и серии.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Что делать, если видео не воспроизводится?</div>
+        <div class="faq-a">Попробуйте: 1) Сменить источник в меню плеера. 2) Отключить блокировщик рекламы. 3) Очистить кэш браузера. 4) Попробовать другой браузер.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Есть ли субтитры?</div>
+        <div class="faq-a">Наличие субтитров зависит от конкретного источника. Некоторые источники предоставляют субтитры на нескольких языках — проверьте настройки внутри плеера.</div>
+      </div>
+
+      <div class="card-faq">
+        <div class="faq-q">❓ Как встроить плеер на свой сайт?</div>
+        <div class="faq-a">Смотрите раздел <a href="#" data-page="docs">📘 Docs</a> — там описана интеграция через скрипт kinobox.js.</div>
+      </div>
+    </div>
+
+    <!-- ======================== DOCS ======================== -->
+    <div id="docsPage" class="info-page">
+      <h1>Документация KinoBox</h1>
+
+      <h2>📌 Маршруты URL</h2>
+      <p>KinoBox использует простые маршруты на основе ID Кинопоиска:</p>
+      <div class="code-block">
+        /films/{kinopoisk_id}   — воспроизведение фильма<br>
+        /serials/{kinopoisk_id} — воспроизведение сериала
+      </div>
+      <p>Пример: <code>kinobox.tv/films/301234</code></p>
+
+      <h2>⚙️ Быстрая интеграция</h2>
+      <p>Вставьте следующий код на любую страницу, чтобы добавить плеер:</p>
+      <div class="code-block">
+&lt;!-- Подключите стили --&gt;<br>
+&lt;link rel="stylesheet" href="https://kinobox.tv/kinobox.css"&gt;<br><br>
+&lt;!-- Контейнер плеера --&gt;<br>
+&lt;div id="myPlayer"&gt;&lt;/div&gt;<br><br>
+&lt;!-- jQuery (если ещё не подключён) --&gt;<br>
+&lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;<br><br>
+&lt;!-- Скрипт KinoBox --&gt;<br>
+&lt;script src="https://kinobox.tv/kinobox.js"&gt;&lt;/script&gt;<br><br>
+&lt;script&gt;<br>
+&nbsp;&nbsp;kinobox('#myPlayer', {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;search: { kinopoisk: 12345 }<br>
+&nbsp;&nbsp;});<br>
+&lt;/script&gt;
+      </div>
+
+      <h2>🔧 Параметры kinobox()</h2>
+      <table class="docs-table">
+        <thead>
+          <tr><th>Параметр</th><th>Тип</th><th>Описание</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>selector</code></td><td>string</td><td>CSS-селектор контейнера плеера</td></tr>
+          <tr><td><code>search.kinopoisk</code></td><td>number</td><td>ID фильма/сериала на Кинопоиске</td></tr>
+          <tr><td><code>search.imdb</code></td><td>string</td><td>IMDB ID (например, <code>tt0111161</code>)</td></tr>
+          <tr><td><code>search.title</code></td><td>string</td><td>Название для поиска</td></tr>
+          <tr><td><code>search.year</code></td><td>number</td><td>Год выхода (для уточнения поиска)</td></tr>
+        </tbody>
+      </table>
+
+      <h2>🌐 Поддерживаемые источники</h2>
+      <p>KinoBox автоматически перебирает доступные источники. Среди поддерживаемых платформ:</p>
+      <ul>
+        <li>Collaps / Alloha / HDVB</li>
+        <li>Videocdn / Kodik / VideoDB</li>
+        <li>Bazon / Ashdi / Vibix</li>
+        <li>YouTube, Vimeo, Rutube, VK Video</li>
+        <li>Dailymotion, OK.ru, Kinescope</li>
+      </ul>
+
+      <h2>📦 Файлы проекта</h2>
+      <div class="code-block">
+kinobox/<br>
+├── index.html        — главная страница<br>
+├── kinobox.css       — стили<br>
+├── kinobox.js        — логика плеера<br>
+├── titlename.js      — утилита для названий<br>
+├── docs/<br>
+│   ├── faq.md<br>
+│   ├── terms.md<br>
+│   └── privacy.md<br>
+└── README.md
+      </div>
+
+      <h2>🚀 Локальный запуск</h2>
+      <div class="code-block">
+# Клонировать репозиторий<br>
+git clone https://github.com/your-username/kinobox.git<br>
+cd kinobox<br><br>
+# Открыть через Python<br>
+python3 -m http.server 8080<br>
+# → http://localhost:8080/films/301234
+      </div>
+    </div>
+
+    <!-- ======================== УСЛОВИЯ ======================== -->
+    <div id="termsPage" class="info-page">
+      <h1>Условия использования</h1>
+      <p><em>Последнее обновление: 1 января 2025 года</em></p>
+
+      <h2>1. Общие положения</h2>
+      <p>Используя сайт KinoBox.tv (далее — «Сервис»), вы подтверждаете, что ознакомились с настоящими условиями и соглашаетесь их соблюдать. Если вы не согласны с условиями — пожалуйста, покиньте сайт.</p>
+
+      <h2>2. Характер сервиса</h2>
+      <p>KinoBox.tv является агрегатором — технической оболочкой, которая встраивает видеоплееры сторонних платформ через публичные API и iframe. Сервис не хранит, не загружает и не распространяет видеофайлы напрямую. Весь видеоконтент размещён на серверах третьих сторон.</p>
+
+      <h2>3. Возрастные ограничения</h2>
+      <p>Сервис предназначен для лиц <strong>старше 18 лет</strong>. Используя KinoBox.tv, вы подтверждаете достижение совершеннолетия по законодательству вашей страны.</p>
+
+      <h2>4. Запрещённые действия</h2>
+      <p>При использовании сервиса запрещается:</p>
+      <ul>
+        <li>Использовать автоматизированные системы (боты, парсеры) для сбора данных</li>
+        <li>Предпринимать попытки взлома или нарушения работы сервиса</li>
+        <li>Распространять ссылки на контент, нарушающий законодательство</li>
+        <li>Использовать сервис в коммерческих целях без разрешения</li>
+      </ul>
+
+      <h2>5. Ограничение ответственности</h2>
+      <p>KinoBox.tv не несёт ответственности за содержимое видеоматериалов, предоставляемых третьими сторонами. Сервис предоставляется «как есть» без каких-либо гарантий бесперебойной работы.</p>
+
+      <h2>6. Интеллектуальная собственность</h2>
+      <p>Дизайн, код и тексты сайта являются собственностью KinoBox.tv. Использование кода проекта регулируется лицензией MIT (см. файл LICENSE в репозитории).</p>
+
+      <h2>7. Изменение условий</h2>
+      <p>Мы оставляем за собой право изменять условия в любое время. Актуальная версия всегда доступна на этой странице.</p>
+
+      <h2>8. Контакт</h2>
+      <p>По всем вопросам: <a href="mailto:support@kinobox.tv">support@kinobox.tv</a></p>
+    </div>
+
+    <!-- ======================== ПОЛИТИКА ======================== -->
+    <div id="privacyPage" class="info-page">
+      <h1>Политика конфиденциальности</h1>
+      <p><em>Последнее обновление: 1 января 2025 года</em></p>
+
+      <h2>1. Что мы собираем</h2>
+      <p>KinoBox.tv автоматически собирает ограниченный набор технических данных:</p>
+      <ul>
+        <li>IP-адрес (для геолокации источников)</li>
+        <li>Тип браузера и операционной системы</li>
+        <li>Страницы, которые вы посещаете</li>
+        <li>Время и дата визита</li>
+      </ul>
+      <p>Мы <strong>не собираем</strong> персональные данные (имя, e-mail, номер телефона) без вашего явного согласия.</p>
+
+      <h2>2. Cookies</h2>
+      <p>Сайт использует технические cookies для корректной работы (например, сохранение выбранного источника плеера). Сторонние сервисы аналитики могут устанавливать собственные cookies.</p>
+
+      <h2>3. Аналитика</h2>
+      <p>Для улучшения сервиса используется Яндекс.Метрика. Данная служба собирает анонимную статистику посещений согласно политике конфиденциальности Яндекса. Вы можете отключить сбор данных, установив расширение для блокировки трекеров.</p>
+
+      <h2>4. Сторонние плееры</h2>
+      <p>Встраиваемые плееры (Collaps, Kodik, Alloha и другие) являются независимыми сервисами и имеют собственные политики конфиденциальности. KinoBox.tv не контролирует данные, которые они собирают.</p>
+
+      <h2>5. Передача данных третьим лицам</h2>
+      <p>Мы не продаём, не сдаём в аренду и не передаём ваши данные третьим лицам, за исключением случаев, предусмотренных законодательством.</p>
+
+      <h2>6. Ваши права</h2>
+      <p>Вы вправе запросить информацию о ваших данных или потребовать их удаления, написав на <a href="mailto:privacy@kinobox.tv">privacy@kinobox.tv</a>.</p>
+
+      <h2>7. Изменения политики</h2>
+      <p>Мы можем обновлять эту политику. О существенных изменениях уведомим на главной странице.</p>
+    </div>
+
+    <!-- ======================== О САЙТЕ ======================== -->
+    <div id="aboutPage" class="info-page">
+      <h1>О сайте KinoBox.tv</h1>
+
+      <p>KinoBox.tv — это открытый веб-плеер нового поколения для просмотра фильмов и сериалов онлайн.</p>
+
+      <h2>🎯 Наша цель</h2>
+      <p>Предоставить максимально простой и удобный способ смотреть кино: просто укажи ID фильма из Кинопоиска — и плеер найдёт все доступные источники сам.</p>
+
+      <h2>⚙️ Технологии</h2>
+      <ul>
+        <li>Базируется на библиотеке <strong>KinoBox.js</strong></li>
+        <li>Поддерживает более 10 видеоисточников одновременно</li>
+        <li>Адаптивный дизайн на чистом HTML/CSS/JS</li>
+        <li>Без фреймворков — быстрая загрузка</li>
+      </ul>
+
+      <h2>📜 Лицензия</h2>
+      <p>Исходный код проекта распространяется по лицензии <strong>MIT</strong>. Вы можете свободно использовать, модифицировать и распространять код с указанием авторства.</p>
+
+      <h2>🤝 Вклад в проект</h2>
+      <p>Проект открыт для вклада. Сообщайте об ошибках и предлагайте улучшения через GitHub Issues.</p>
+
+      <div class="about-links">
+        <a href="https://github.com/your-username/kinobox" target="_blank" class="about-btn">⭐ GitHub</a>
+        <a href="#" data-page="docs" class="about-btn">📘 Документация</a>
+        <a href="#" data-page="faq" class="about-btn">❓ FAQ</a>
+      </div>
+    </div>
+
+  </div><!-- /main-container -->
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="#" data-page="terms">Условия использования</a>
+      <a href="#" data-page="privacy">Политика конфиденциальности</a>
+      <a href="#" data-page="docs">Документация</a>
+      <a href="#" data-page="faq">FAQ</a>
+    </div>
+    <p>KinoBox.tv © 2025 — Плеер нового поколения. 18+</p>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- KinoBox скрипт -->
+<script src="kinobox.js"></script>
+<script src="titlename.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
