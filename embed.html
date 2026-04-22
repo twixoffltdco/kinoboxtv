@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Embed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta name="description" content="KinoBox.tv — Смотрите фильмы и сериалы бесплатно онлайн. Быстрый плеер нового поколения.">
+<meta name="keywords" content="кино онлайн, сериалы онлайн, фильмы бесплатно, kinobox">
+<meta name="HandheldFriendly" content="true">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:title" content="KinoBox — Кино и сериалы онлайн">
+<meta property="og:description" content="Смотрите фильмы и сериалы бесплатно. Быстрый плеер нового поколения.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kinobox.css">
+</head>
+<body>
+
+
+  <div class="main-container">
+
+    <!-- ======================== СТРАНИЦА ПЛЕЕРА ======================== -->
+    <div id="playerPage" class="info-page">
+      <div class="player-section">
+        <div class="player-header">
+          <h2 id="playerTitle">🎥 KinoBox Плеер</h2>
+          <div class="player-id-badge" id="currentKpBadge">ID: —</div>
+        </div>
+        <div id="kinoboxContainer" class="kinobox-player"></div>
+        <div class="player-hint">
+          💡 Используй адресную строку:
+          <code>/films/1234567</code> для фильма или
+          <code>/serials/1234567</code> для сериала
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== ЛЕНДИНГ ======================== -->
+    <div id="landingPage" class="info-page active-page">
+      <div class="hero">
+        <div class="hero-icon">🎬</div>
+        <h1>KinoBox.tv</h1>
+        <p class="hero-sub">Плеер нового поколения для фильмов и сериалов</p>
+        <a href="#" data-page="player" class="btn-start">▶ Смотреть сейчас</a>
+      </div>
+
+    
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- KinoBox скрипт -->
+<script src="kinobox.js"></script>
+<script src="titlename.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
