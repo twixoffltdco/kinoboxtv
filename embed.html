@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KinoBox Player</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#000;overflow:hidden}
+#embedBox{
+  width:100%;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+}
+.loader{color:#6a78a3;font-family:sans-serif;font-size:14px;text-align:center}
+.err{color:#fca5a5;font-family:sans-serif;font-size:13px;text-align:center;padding:20px}
+/* kinobox frame override — занять весь экран */
+.kinobox__wrapper{border-radius:0!important}
+iframe{border:none!important}
+</style>
+</head>
+<body>
+<div id="embedBox">
+  <div class="loader">⏳ Загрузка плеера...</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="kinobox.js"></script>
+<script>
+(function(){
+  /* Читаем ID из хэша: /embed/#301 или /embed/#films/301 */
+  function getKpId(){
+    var h = window.location.hash.replace(/^#\/?/,'');
+    var m = h.match(/^(?:films\/|serials\/)?(\d+)/i);
+    return m ? parseInt(m[1],10) : null;
+  }
+
+  var kpId = getKpId();
+
+  if(!kpId){
+    document.getElementById('embedBox').innerHTML =
+      '<div class="err">⚠️ Не указан ID.<br>Формат: <code>/embed/#KINOPOISK_ID</code></div>';
+    return;
+  }
+
+  function tryInit(attempts){
+    if(typeof window.kinobox === 'function'){
+      var box = document.getElementById('embedBox');
+      box.innerHTML = '';
+      box.id = 'kbPlayer';
+      try{
+        window.kinobox('#kbPlayer', {search:{kinopoisk: kpId}});
+      }catch(e){
+        box.innerHTML = '<div class="err">⚠️ Ошибка плеера: '+e.message+'</div>';
+      }
+    } else if(attempts < 40){
+      setTimeout(function(){tryInit(attempts+1);}, 200);
+    } else {
+      document.getElementById('embedBox').innerHTML =
+        '<div class="err">⚠️ Плеер не загрузился. Проверьте соединение.</div>';
+    }
+  }
+
+  tryInit(0);
+
+  /* Обновляем при смене хэша */
+  window.addEventListener('hashchange', function(){
+    window.location.reload();
+  });
+})();
+</script>
+</body>
+</html>
