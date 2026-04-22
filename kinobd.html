@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KinoBD резервный источник</title>
+  <style>
+    html, body { margin:0; padding:0; width:100%; height:100%; background:#000; }
+    #kinobd { width:100%; height:100%; }
+  </style>
+</head>
+<body>
+  <div id="kinobd" data-kbd="kinobd" data-player="collaps,voidboost,videocdn,alloha,ashdi,kodik,vibix,bazon,hdvb" data-bg="111111"></div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var root = document.getElementById('kinobd');
+      var kp = params.get('kinopoisk') || params.get('kp') || '';
+      var imdb = params.get('imdb') || '';
+      var title = params.get('title') || '';
+
+      if (kp) root.setAttribute('data-kinopoisk', kp);
+      if (imdb) root.setAttribute('data-imdb', imdb);
+      if (title) root.setAttribute('data-title', title);
+    })();
+  </script>
+  <script src="/kinobd.js"></script>
+</body>
+</html>
