@@ -45,4 +45,4 @@ KinoBox.tv не несёт ответственности за:
 
 ## 9. Контакт
 
-По всем вопросам: support@kinobox.tv
+По всем вопросам: ginkdev@mail.ru
